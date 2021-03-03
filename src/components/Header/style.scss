@@ -1,0 +1,17 @@
+.header {
+    height: 4rem;
+    padding: 0 3rem;
+    background-color: #fff;
+    box-shadow: 0 0 10px 0 rgba(51,51,51,.66);
+    display: flex;
+    justify-content: space-between;
+    .headerMenu {
+        display: flex;
+    }
+    .btn {
+        color: #0a64c4;
+    }
+    .btn:hover {
+        color: #096dd9b9;
+    }
+}

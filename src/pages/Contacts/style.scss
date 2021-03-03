@@ -1,0 +1,17 @@
+.wraper {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+ 
+}
+.wraperContacts {
+    // height: 100%;
+    margin: 1rem 2rem;
+    .headerConstacts{
+        .title {
+            font-weight: 600;
+            font-size: 32px;
+        }
+    }
+}
