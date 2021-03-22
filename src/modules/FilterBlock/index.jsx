@@ -1,26 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Input, Select, Space } from 'antd';
 import useFilter from './hook'
+
 import './style.scss';
-
-const options = [];
-
-for (let i = 10; i < 36; i++) {
-  const value = i.toString(36) + i;
-  options.push({
-    label: `Long Label: ${value}`,
-    value,
-  });
-}
-
-const { Option } = Select;
-const { Search } = Input;
-
-const onSearch = value => console.log(value);
+import { useSelector } from 'react-redux';
+import { contactSelector } from '../../redux/selector/selector';
 
 export default function FilterBlock() {
-  const { handleSearch, handleGender } = useFilter();
-  const [value, setValue] = React.useState();
+  const [value, setValue] = useState();
+  const dataContacts = useSelector(contactSelector)
+  const { handleSearch, handleGender, handleNationality } = useFilter();
+
+  const { Option } = Select;
+  const { Search } = Input;
+
+  const onSearch = value => console.log(value);
+
+  const arrCountries = dataContacts && dataContacts.map((item) => item.location.country)
+  const countries = arrCountries && arrCountries.reduce((array, item) => {
+    if(!array.includes(item)) {
+      return [...array, item]
+    }
+    return array
+  },[])
+  const options = [];
+  countries && countries.map((value) => options.push({label: value, value}))  
   const selectProps = {
     mode: 'multiple',
     style: {
@@ -33,8 +37,7 @@ export default function FilterBlock() {
     },
     placeholder: 'Select Item...',
     maxTagCount: 'responsive',
-  };
-  console.log(options);
+  };  
 
   return (
     <div className="wraperFilterBlock">
@@ -43,7 +46,7 @@ export default function FilterBlock() {
         <Option  value="male">male</Option>
         <Option value="female">female</Option>
       </Select>
-      <Space direction="vertical" style={{ width: 320 }}>
+      <Space direction="vertical" style={{ width: 320 }} onChange={handleNationality(value)}>
         <Select {...selectProps} />
       </Space>
     </div>

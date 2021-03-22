@@ -1,36 +1,39 @@
 import React, { useState } from 'react';
 import Modal from './ModalHeader'
 import Button from '../Button'
-import { useHistory } from 'react-router-dom';
-import { CONTACTS, ROOT } from '../../constants/routes';
+import { useHistory,Link } from 'react-router-dom';
+import { CONTACTS, PROFILE, ROOT } from '../../constants/routes';
 import { Menu, Dropdown } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
 import './style.scss';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/action/user';
 
 export default function Haeder({user}) {
+    const dispatch = useDispatch()
     const [modal, setModal] = useState(false)
     const history = useHistory()
+    // const userImg = useSelector(userSelector)
 
+    const handleLoguot = () => {
+      dispatch(logout());
+      history.push(ROOT)
+    }
     const menu = (
       <Menu>
         <Menu.Item key="0">
-          <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-            1st menu item
-          </a>
+          <Link to={PROFILE}>
+            Profile
+          </Link>
         </Menu.Item>
         <Menu.Item key="1">
-          <a target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
-            2nd menu item
-          </a>
-        </Menu.Item>
-        <Menu.Divider />
-        <Menu.Item key="3" disabled>
-          3rd menu item（disabled）
+          <Button onClick={() => handleLoguot()} target="_blank" rel="noopener noreferrer" href="https://www.aliyun.com">
+            Logout
+          </Button>
         </Menu.Item>
       </Menu>
     );
-
     return (
     <div className="header">
         <div className="headerMenu">
@@ -40,29 +43,35 @@ export default function Haeder({user}) {
             >
               Home
             </Button>
-            <Button 
+            {
+              user && <Button 
               className="btn"
               onClick={() => history.push(CONTACTS)}
             >
               Contacts
             </Button>
+            }
        </div>
+       {
+        !user && <Button
+         className="btn"
+         onClick={() => setModal(true) }
+        >
+         Sing In
+       </Button>
+       }
        {   
-          user && user ?
+          user &&
+          <div className="blockRight">
             <Dropdown 
               // className="btn"  
               overlay={menu}>
               <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-                Hover me <DownOutlined />
+               {`${user.name.title} ${user.name.first} ${user.name.last}`} <DownOutlined />
               </a>
             </Dropdown>
-          :    
-          <Button
-            className="btn"
-            onClick={() => setModal(true) }
-          >
-            Sing In
-          </Button>
+            <img className="userImg" src={user.picture.thumbnail} alt=""/>
+          </div>
        }
         <Modal 
             show={modal}

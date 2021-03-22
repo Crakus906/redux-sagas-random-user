@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Header, Footer } from '../../components/index'
+import { Header, Footer, Pagination } from '../../components/index'
 import {FilterBlock, Users, Statistic} from '../../modules/index'
 import { contacts } from '../../redux/action/user';
 import { userSelector } from '../../redux/selector/selector';

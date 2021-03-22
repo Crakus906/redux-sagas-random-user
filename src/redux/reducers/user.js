@@ -4,10 +4,26 @@ const initState = {
     contants: null,
     search: '',
     gender: '',
+    nationality: '',
 }
 
 export default (state = initState, { type, payload }) => {
     switch (type) {
+      // case 'LINKED_IN_REQUEST':
+      //   return {
+      //     ...state,
+      //     linkedIn: null,
+      //   };
+      // case 'LINKED_IN_RESPONSE':
+      //   return {
+      //     ...state,
+      //     linkedIn: payload,
+      //   };
+      // case 'LINKED_IN_REJECT':
+      //   return {
+      //     ...state,
+      //     linkedIn: null,
+      //   };
       case 'USER_REQUEST':
         return {
           ...state,
@@ -47,6 +63,17 @@ export default (state = initState, { type, payload }) => {
           return {
             ...state,
             gender: payload,
+          }
+        case 'NATIONALITY':
+          return {
+            ...state,
+            nationality: payload,
+          }
+        case 'LOGOUT': 
+          return {
+            ...state,
+            currentUser: [],
+            contants: [],
           }
       default:
         return state;

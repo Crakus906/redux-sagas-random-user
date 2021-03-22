@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { useHistory } from "react-router-dom";
 import { PROFILE } from "../../../../constants/routes"
 
 import './style.scss';
+import { useDispatch } from 'react-redux';
+import { user } from '../../../../redux/action/user';
 
   const layout = {
     labelCol: {
@@ -21,11 +23,11 @@ import './style.scss';
   };
 
 export default function SingUpForm() {
+  const dispatch = useDispatch()
   const history = useHistory()
 
   const onFinish = (values) => {
-    console.log('Success:', values);
-    history.push(PROFILE)
+    history.push(PROFILE);
   };
 
   const onFinishFailed = (errorInfo) => {

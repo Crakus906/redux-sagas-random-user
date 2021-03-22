@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { debounce } from "debounce";
-import { search, gender } from "../../redux/action/user";
+import { search, gender, nationality } from "../../redux/action/user";
 
 export default function useFilter() {
     const dispatch = useDispatch();
@@ -12,8 +12,14 @@ export default function useFilter() {
     const handleGender = (e) => {
         dispatch(gender(e))
     }
+
+    const handleNationality = (e) => {
+        dispatch(nationality(e))
+    }
+
     return {
         handleSearch,
-        handleGender
+        handleGender,
+        handleNationality
     }    
 }
